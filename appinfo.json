@@ -1,0 +1,26 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "dmattia@nd.edu",
+    "longName": "Clash Watchface",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/clash.png",
+                "name": "IMAGE_CLASH_BACKGROUND",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "2",
+    "shortName": "Clash Watchface",
+    "uuid": "1ee75dd5-71a4-469b-8432-8e4aa16664ff",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
