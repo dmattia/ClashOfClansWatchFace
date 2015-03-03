@@ -2,6 +2,7 @@
 	
 static Window * s_main_window;
 static TextLayer * s_time_layer;
+static TextLayer * s_date_layer;
 static GFont s_time_font;
 static BitmapLayer * s_background_layer;
 static GBitmap * s_background_bitmap;
@@ -20,14 +21,29 @@ static void update_time() {
 	text_layer_set_text(s_time_layer, buffer);
 }
 
+static void update_date() {
+	time_t temp = time(NULL);
+	struct tm *tick_time = localtime(&temp);
+	static char weekday[] = "MON JAN 01";
+	strftime(weekday, sizeof("MON JAN 01"), "%a %b %d", tick_time);
+	text_layer_set_text(s_date_layer, weekday);
+}
+
 static void main_window_load(Window * window) {
-	//Create layer for clock with space in the middle
-	s_time_layer = text_layer_create(GRect(0, 134, 144, 34));
+	//Create layer for clock
+	s_time_layer = text_layer_create(GRect(0, 118, 144, 34));
 	text_layer_set_background_color(s_time_layer, GColorClear);
 	text_layer_set_text_color(s_time_layer, GColorBlack);
 	
-	//set font
-	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_DROID_SERIF_28_BOLD));
+	//Create layer for date
+	s_date_layer = text_layer_create(GRect(0, 142, 140, 18));
+	text_layer_set_background_color(s_date_layer, GColorClear);
+	text_layer_set_text_color(s_date_layer, GColorBlack);
+	
+	//set fonts
+	text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28));
+	text_layer_set_text_alignment(s_date_layer, GTextAlignmentRight);
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
 	
 	//Create bitmap
@@ -36,10 +52,12 @@ static void main_window_load(Window * window) {
 	bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
 	
 	update_time();
+	update_date();
 		
 	//add layers to window
 	layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
+	layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
 }
 
 static void main_window_unload(Window * window) {
