@@ -9,6 +9,11 @@
     "resources": {
         "media": [
             {
+                "file": "images/WatchFace.png",
+                "name": "IMAGE_WATCHFACE",
+                "type": "png"
+            },
+            {
                 "file": "images/dithered.png",
                 "name": "IMAGE_DITHERED",
                 "type": "png"
