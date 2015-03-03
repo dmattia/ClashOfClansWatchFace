@@ -1,5 +1,5 @@
 #include <pebble.h>
-
+	
 static Window * s_main_window;
 static TextLayer * s_time_layer;
 static GFont s_time_font;
@@ -27,7 +27,7 @@ static void main_window_load(Window * window) {
 	text_layer_set_text_color(s_time_layer, GColorBlack);
 	
 	//set font
-	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
+	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_DROID_SERIF_28_BOLD));
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
 	
 	//Create bitmap
