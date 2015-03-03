@@ -12,7 +12,7 @@ static void update_time() {
 	time_t temp = time(NULL);
 	struct tm *tick_time = localtime(&temp);
 	static char buffer[] = "00:00";
-	static char battery_percent[] = "00%";
+	static char battery_percent[] = "+00%";
 	
 	if(clock_is_24h_style()) {
 		strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
@@ -23,7 +23,8 @@ static void update_time() {
 	text_layer_set_text(s_time_layer, buffer);	
 	
 	BatteryChargeState battery = battery_state_service_peek();
-	snprintf(battery_percent, sizeof("00%"), "%i\%c", battery.charge_percent, '%');
+	snprintf(battery_percent, sizeof("+00%"), "%c%i\%c", ' ', battery.charge_percent, '%');
+	if(battery.is_charging) battery_percent[0] = '+';
 	text_layer_set_text(s_battery_layer,battery_percent);
 }
 
@@ -91,7 +92,8 @@ static void init() {
   .unload = main_window_unload
   });
   window_stack_push(s_main_window,true);
-	tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+	//tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+	tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
 }
 
 static void deinit() {
