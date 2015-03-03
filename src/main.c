@@ -3,6 +3,7 @@
 static Window * s_main_window;
 static TextLayer * s_time_layer;
 static TextLayer * s_date_layer;
+static TextLayer * s_battery_layer;
 static GFont s_time_font;
 static BitmapLayer * s_background_layer;
 static GBitmap * s_background_bitmap;
@@ -11,6 +12,7 @@ static void update_time() {
 	time_t temp = time(NULL);
 	struct tm *tick_time = localtime(&temp);
 	static char buffer[] = "00:00";
+	static char battery_percent[] = "00%";
 	
 	if(clock_is_24h_style()) {
 		strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
@@ -18,7 +20,11 @@ static void update_time() {
 		strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
 	}
 
-	text_layer_set_text(s_time_layer, buffer);
+	text_layer_set_text(s_time_layer, buffer);	
+	
+	BatteryChargeState battery = battery_state_service_peek();
+	snprintf(battery_percent, sizeof("00%"), "%i\%c", battery.charge_percent, '%');
+	text_layer_set_text(s_battery_layer,battery_percent);
 }
 
 static void update_date() {
@@ -40,11 +46,18 @@ static void main_window_load(Window * window) {
 	text_layer_set_background_color(s_date_layer, GColorClear);
 	text_layer_set_text_color(s_date_layer, GColorBlack);
 	
+	//Create layer for battery percentage
+	s_battery_layer = text_layer_create(GRect(4,4,140,20));
+	text_layer_set_background_color(s_battery_layer, GColorClear);
+	text_layer_set_text_color(s_battery_layer, GColorBlack);
+	
 	//set fonts
 	text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
 	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28));
+	text_layer_set_font(s_battery_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
 	text_layer_set_text_alignment(s_date_layer, GTextAlignmentRight);
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
+	text_layer_set_text_alignment(s_battery_layer, GTextAlignmentLeft);
 	
 	//Create bitmap
 	s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_DITHERED);
@@ -58,6 +71,7 @@ static void main_window_load(Window * window) {
 	layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
+	layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_battery_layer));
 }
 
 static void main_window_unload(Window * window) {

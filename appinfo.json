@@ -12,11 +12,6 @@
                 "file": "images/dithered.png",
                 "name": "IMAGE_DITHERED",
                 "type": "png"
-            },
-            {
-                "file": "images/clash.png",
-                "name": "IMAGE_CLASH_BACKGROUND",
-                "type": "png"
             }
         ]
     },
