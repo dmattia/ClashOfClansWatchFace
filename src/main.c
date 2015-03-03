@@ -22,16 +22,16 @@ static void update_time() {
 
 static void main_window_load(Window * window) {
 	//Create layer for clock with space in the middle
-	s_time_layer = text_layer_create(GRect(0, 56, 144, 50));
+	s_time_layer = text_layer_create(GRect(0, 134, 144, 34));
 	text_layer_set_background_color(s_time_layer, GColorClear);
 	text_layer_set_text_color(s_time_layer, GColorBlack);
 	
 	//set font
-	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_MEDIUM_NUMBERS));
+	text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
 	text_layer_set_text_alignment(s_time_layer, GTextAlignmentRight);
 	
 	//Create bitmap
-	s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_CLASH_BACKGROUND);
+	s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_DITHERED);
 	s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
 	bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
 	
