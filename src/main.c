@@ -23,8 +23,12 @@ static void update_time() {
 	text_layer_set_text(s_time_layer, buffer);	
 	
 	BatteryChargeState battery = battery_state_service_peek();
-	snprintf(battery_percent, sizeof("+00%"), "%c%i\%c", ' ', battery.charge_percent, '%');
+	if (battery.charge_percent < 100) {
+		snprintf(battery_percent, sizeof("+00%"), "%c%i\%c", ' ', battery.charge_percent, '%');
 	if(battery.is_charging) battery_percent[0] = '+';
+	} else {
+    snprintf(battery_percent, sizeof("+00%"), "%s", "FULL");
+	}
 	text_layer_set_text(s_battery_layer,battery_percent);
 }
 
