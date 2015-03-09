@@ -83,6 +83,9 @@ static void main_window_unload(Window * window) {
 	fonts_unload_custom_font(s_time_font);
 	bitmap_layer_destroy(s_background_layer);
 	gbitmap_destroy(s_background_bitmap);
+	text_layer_destroy(s_time_layer);
+	text_layer_destroy(s_date_layer);
+	text_layer_destroy(s_battery_layer);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits unitsChanged) {
