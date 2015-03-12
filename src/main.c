@@ -24,7 +24,7 @@ static void update_time() {
 	
 	BatteryChargeState battery = battery_state_service_peek();
 	if (battery.charge_percent < 100) {
-		snprintf(battery_percent, sizeof("+00%"), "%c%i\%c", ' ', battery.charge_percent, '%');
+		snprintf(battery_percent, sizeof("+00%"), "%i\%c%c", battery.charge_percent, '%', ' ');
 	if(battery.is_charging) battery_percent[0] = '+';
 	} else {
     snprintf(battery_percent, sizeof("+00%"), "%s", "FULL");
