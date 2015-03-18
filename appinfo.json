@@ -4,25 +4,23 @@
         ""
     ],
     "companyName": "dmattia@nd.edu",
-    "longName": "Clash Watchface",
+    "longName": "Clash of Clans",
     "projectType": "native",
     "resources": {
         "media": [
             {
-                "file": "images/WatchFace.png",
-                "name": "IMAGE_WATCHFACE",
-                "type": "png"
-            },
-            {
-                "file": "images/dithered.png",
-                "name": "IMAGE_DITHERED",
+                "file": "images/clash b_w.png",
+                "name": "IMAGE_CLASH",
                 "type": "png"
             }
         ]
     },
-    "sdkVersion": "2",
-    "shortName": "Clash Watchface",
-    "uuid": "1ee75dd5-71a4-469b-8432-8e4aa16664ff",
+    "sdkVersion": "3",
+    "shortName": "Clash of Clans",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "2069a90a-7b0d-42eb-925f-3be1ce200d99",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
